@@ -28,7 +28,7 @@ if(isset($_GET["del"])){unset($_SESSION["cart"][$_GET["del"]]);}
 
 $total = 0;
 foreach($_SESSION["cart"] as $id => $cant){
-	$temp = $cli->qwerty->Peliculas->findOne(Array("_id" => $id));
+	$temp = $cli->qwerty->peliculas->findOne(Array("_id" => new MongoDB\BSON\ObjectId($id)));
 	$total += $cant*$temp["precio"];
 
 	echo <<<EOD

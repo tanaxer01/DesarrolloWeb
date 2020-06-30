@@ -50,7 +50,6 @@ function getId($name){
 	echo '<div class="alert alert-warning" role="alert">'.str_replace('href="','href="index.php?choosen=|',$matches[0][0]).'</div>';
 }
 
-//si no hay col la crea e inserta si no esta en col existente
 function addItem($id, $cli){	
 	$info = file_get_contents('https://www.imdb.com/'.$id);
 	
@@ -63,17 +62,26 @@ function addItem($id, $cli){
 	//"price"
 	preg_match_all('/"ratingCount": ([0-9]*),/U',$info,$precio);
 	//genero
-	preg_match_all('/Genres:<\/h4>\n<a href=".*"\n>(.*)</U',$info,$genero);
+	preg_match_all('/Genres:<\/h4>\n<a href=".*"\n> (.*)</U',$info,$genero);
 
-	if(!$cli->qwerty->Peliculas->findOne(Array("_id" => $id))){
+	if(!$cli->qwerty->peliculas->findOne(Array("link" => $id))){
 
-		$datos = Array("_id" => $id,
+		$newGenero = $cli->qwerty->categorias->findOne(Array("nombre" => $genero[1][0]));
+
+		if(!$newGenero){
+			$cli->qwerty->categorias->InsertOne(["nombre" => $genero[1][0]]);
+		
+			$newGenero = $cli->qwerty->categorias->findOne(Array("nombre" => $genero[1][0]));
+		}
+	
+
+		$datos = Array("link" => $id,
 			       "nombre" => $titulo[1][0],
 		       	       "descrip" => $descrip[1][0],
 		               "foto" => $foto[1][0],
 		       	       "precio" => $precio[1][0],
-		       	       "genero" => $genero[1][0]);
-		$cli->qwerty->Peliculas->insertOne($datos);
+		       	       "genero" => (String)$newGenero["_id"]);
+		$cli->qwerty->peliculas->insertOne($datos);
 	}	
 }
 
@@ -93,11 +101,11 @@ if(isset($_GET['choosen'])){
 <!-- CATEGORY LIST --!>
 		<div class="list-group border border-dark rounded">
 <?php
-foreach($cli->qwerty->Peliculas->aggregate([['$group' => ['_id' => '$genero']]]) as $num => $cat){
+foreach($cli->qwerty->categorias->find() as $num => $cat){
 	if($num%2 == 0){	
-	echo '<a href="cat.php?cat='.$cat['_id'].'" class="list-group-item list-group-item-action list-group-item-light">'.$cat['_id'].'</a>';
+	echo '<a href="cat.php?cat='.(string)$cat['_id'].'" class="list-group-item list-group-item-action list-group-item-light">'.$cat['nombre'].'</a>';
 	}else{	
-	echo '<a href="cat.php?cat='.$cat['_id'].'" class="list-group-item list-group-item-action list-group-item-dark">'.$cat['_id'].'</a>';
+	echo '<a href="cat.php?cat='.(string)$cat['_id'].'" class="list-group-item list-group-item-action list-group-item-dark">'.$cat['nombre'].'</a>';
 	}	
 }
 

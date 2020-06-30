@@ -23,8 +23,8 @@ $cli = new MongoDB\Client("mongodb://localhost");
 		<div class="list-group mt-5">
 <?php
 
-foreach($cli->qwerty->Peliculas->aggregate([['$match'=>['genero' => $_GET['cat']]]]) as $num => $row){
-	echo '<a href="prod.php?cat='.$_GET['cat'].'&opt='.$row['_id'].'" class="list-group-item list-group-item-action">'.$row['nombre'].'</a>';
+foreach($cli->qwerty->peliculas->find(["genero" => $_GET['cat'] ]) as $num => $row){
+	echo '<a href="prod.php?cat='.$_GET['cat'].'&opt='.(string)$row['_id'].'" class="list-group-item list-group-item-action">'.$row['nombre'].'</a>';
 
 }
 

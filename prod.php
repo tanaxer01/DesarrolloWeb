@@ -4,8 +4,8 @@ require '../PhpStuff/vendor/autoload.php';
 
 $cli = new MongoDB\Client("mongodb://localhost");
 
-$opt = $_GET['opt'];
-$curr = $cli->qwerty->Peliculas->findOne(Array('_id' => $opt));
+$opt = new MongoDB\BSON\ObjectId($_GET['opt']);
+$curr = $cli->qwerty->peliculas->findOne(Array('_id' => $opt));
 
 ?>
 <!-- Coneccion a Mongo y pedimos el objeto END--!>

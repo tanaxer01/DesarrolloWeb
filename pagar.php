@@ -5,7 +5,7 @@ require '../PhpStuff/vendor/autoload.php';
 $cli = new MongoDB\Client("mongodb://localhost");
 
 
-$cli->qwerty->Ordenes->InsertOne(Array('total' => $_POST['total'], 'productos' => $_SESSION['cart']));
+$cli->qwerty->ordenes->InsertOne(Array('total' => $_POST['total'], 'productos' => $_SESSION['cart']));
 unset($_SESSION["cart"]);
 ?>
 <html class="h-100">

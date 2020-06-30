@@ -68,13 +68,13 @@ echo <<<EOD
 		<tbody>
 EOD;
 $curr = 1;
-foreach($cli->qwerty->Ordenes->find() as $num => $info)
+foreach($cli->qwerty->ordenes->find() as $num => $info)
 {
 	echo '<tr><td clospan="4">venta '.$curr.'</td></tr>';
 	$f = True;
 
 	foreach($info["productos"] as $id => $cant){
-		$temp = $cli->qwerty->Peliculas->findOne(Array("_id" => $id));
+		$temp = $cli->qwerty->peliculas->findOne(Array("_id" => new MongoDB\BSON\ObjectId($id)));
 		if($f){	
 			echo <<<EOD
 			<tr>

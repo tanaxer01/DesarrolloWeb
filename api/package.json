@@ -1,0 +1,25 @@
+{
+  "name": "API",
+  "version": "1.0.0",
+  "description": "ENTREGA API - DESARROLLO WEB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanaxer01/DesarrolloWeb.git"
+  },
+  "author": "@jpbrione",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanaxer01/DesarrolloWeb/issues"
+  },
+  "homepage": "https://github.com/tanaxer01/DesarrolloWeb#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20"
+  }
+}

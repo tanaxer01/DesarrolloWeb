@@ -15,9 +15,9 @@ module.exports = (app) => {
 // agregarCarro
 	app.get("/api/agregarCarro/:prod&:cant", controller.agregarCarro);
 // delCarro
-
+	app.get("/api/delCarro/:prod", controller.delCarro);
 // comprarCarro
-
+	app.get("/api/comprarCarro", controller.comprarCarro);
 // ordenesdeCompra
 	app.get("/api/ordenesdeCompra", controller.getOrdenes);
 // ordenes

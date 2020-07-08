@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(session(
 	{ secret: 'mira este secreto super secreto el secreto',
 	  resave: false,
+	  saveUninitialized: true
 	}));
 app.use(bodyParser.urlencoded({ extended : true }));
 
